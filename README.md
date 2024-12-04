@@ -16,3 +16,7 @@ To run the bot, you will need a "Logs" folder in the build directory and a setti
 
 ## Known Issues:
 - The backend API used to store filter configurations no longer works. You’ll need to move the configurations to local storage.
+
+## Community 
+
+https://t.me/bablobtn
