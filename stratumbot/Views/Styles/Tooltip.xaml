@@ -1,0 +1,31 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:stratumbot.Views.Styles">
+
+    <!--
+    Что не так с этим тултипом:
+    1) Стрелочка верхняя кривая
+    2) Размер текста 80 симв или сколько там идеальный в ширину сделать
+    3) Общая статистика не хочет отображаться в таком тултипе
+    -->
+    <Style TargetType="ToolTip">
+        <Setter Property="OverridesDefaultStyle" Value="true"/>
+        <Setter Property="HasDropShadow" Value="True"/>
+        <Setter Property="Placement" Value="Mouse" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToolTip">
+                    <StackPanel>
+                        <Path Margin="10,0,0,0" Fill="#e5323232" Data="M 0 6 L 6 0 L 12 6 Z" StrokeThickness="0"/>
+                        <Border CornerRadius="5" HorizontalAlignment="Center"  VerticalAlignment="Top" Padding="10,7" BorderThickness="0" Background="#e5323232" OverridesDefaultStyle="True">
+                            <StackPanel >
+                                <TextBlock FontFamily="Arial" FontSize="12"  Text="{TemplateBinding Content}" Foreground="#f0f0f0" />
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

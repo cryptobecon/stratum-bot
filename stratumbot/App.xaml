@@ -1,0 +1,25 @@
+﻿<Application x:Class="stratumbot.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:stratumbot"
+             xmlns:converters="clr-namespace:stratumbot.Core.Converters"
+             StartupUri="Views\LoadingWindow.xaml">
+    <Application.Resources>
+        
+        <ResourceDictionary>
+            <BooleanToVisibilityConverter x:Key="b2v" />
+            <converters:UnixTimeToDateConverter x:Key="unix2date" />
+            <converters:StringToDecimal x:Key="string2decimal" />
+            
+            <ResourceDictionary.MergedDictionaries>
+                <!--<ResourceDictionary Source="Views/Styles/Tooltip.xaml" />-->
+                <ResourceDictionary Source="Views/Styles/ComboBox.xaml" />
+                <ResourceDictionary Source="Views/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="Views/Styles/Buttons.xaml" />
+                <ResourceDictionary Source="Views/Styles/Scroll.xaml" />
+                <ResourceDictionary Source="Views/Styles/Logs.xaml" />
+
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

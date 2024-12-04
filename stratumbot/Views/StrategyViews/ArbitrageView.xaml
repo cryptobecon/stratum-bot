@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="stratumbot.Views.StrategyViews.ArbitrageView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:stratumbot.Views.StrategyViews"
+             mc:Ignorable="d" 
+             d:DesignHeight="449" d:DesignWidth="328.11">
+    <Grid>
+        <ScrollViewer  x:Name="scalping_scroll" Margin="0,0,-7.045,20"  Height="429">
+            <!--VerticalScrollBarVisibility="Disabled"-->
+
+            <WrapPanel>
+                <Grid>
+                    <Label x:Name="pair_label" ToolTip="Валютная пара для торговли" Content="Валютная пара" HorizontalAlignment="Left" Margin="114,0,0,0" VerticalAlignment="Top" Cursor="Hand"/>
+                    <TextBox x:Name="CUR1_txt" HorizontalAlignment="Left" Height="30" Margin="30,21,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="101" FontSize="20" Background="{x:Null}" BorderThickness="0,0,0,1" CharacterCasing="Upper" TextAlignment="Center" Text="ETH"/>
+                    <TextBox x:Name="CUR2_txt" HorizontalAlignment="Left" Height="30" Margin="186,21,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="101" FontSize="20" Background="{x:Null}" BorderThickness="0,0,0,1" CharacterCasing="Upper" TextAlignment="Center" Text="BTC"/>
+                    <Label Content="/" HorizontalAlignment="Left" Margin="155,21,0,0" VerticalAlignment="Top"/>
+                    <Button ToolTip="Подобрать параметры автоматически" x:Name="autofit_btn" Content="&#xE945;" HorizontalAlignment="Left" Margin="292,28,0,0" VerticalAlignment="Top" Width="18" Height="18" FontFamily="/stratum-bot;component/Views/Resources/Fonts/#Segoe MDL2 Assets" Background="{x:Null}" BorderBrush="{x:Null}" BorderThickness="0" Cursor="Hand" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"  Padding="1"/>
+                </Grid>
+
+                <Grid>
+                    <Label x:Name="budget_lbl" ToolTip="Количество монет валюты #2, на которое будут приобретены монеты валюты #1" Content="Бюджет" HorizontalAlignment="Left" Margin="133,0,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="budget_txt" HorizontalAlignment="Left" Height="30" Margin="30,22,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="257" FontSize="20" Background="{x:Null}" BorderThickness="0,0,0,1" CharacterCasing="Upper" TextAlignment="Center" Text="{Binding Budget}"/>
+                </Grid>
+
+            </WrapPanel>
+        </ScrollViewer>
+        
+        
+    </Grid>
+</UserControl>

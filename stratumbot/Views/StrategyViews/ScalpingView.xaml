@@ -1,0 +1,230 @@
+﻿<UserControl x:Class="stratumbot.Views.StrategyViews.ScalpingView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:stratumbot"
+             xmlns:main="clr-namespace:stratumbot.Models"
+             mc:Ignorable="d" 
+              d:DesignWidth="328.11">
+    <!--d:DesignHeight="449"-->
+    <WrapPanel>
+        <DockPanel>
+            <Grid DockPanel.Dock="Bottom" x:Name="more_close_btn" HorizontalAlignment="Left" Height="18"  VerticalAlignment="Top" Width="318" Cursor="Hand" Visibility="Hidden" MouseLeftButtonDown="more_close_btn_Click">
+                <Label Content="&#xE010;" FontFamily="/stratum-bot;component/Views/Resources/Fonts/#Segoe MDL2 Assets" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" Height="18" Width="318" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Grid>
+            <ScrollViewer x:Name="scalping_scroll" Margin="0,0,-7.045,0" VerticalScrollBarVisibility="Disabled">
+                <!--VerticalScrollBarVisibility="Disabled" Height="429"-->
+
+                <WrapPanel>
+                    <Grid>
+                        <Label ToolTip="{x:Static local:_.CurrencyPairToolTip}" Content="{x:Static local:_.CurrencyPair}" HorizontalAlignment="Left" Margin="114,0,0,0" VerticalAlignment="Top" Cursor="Hand"/>
+                        <TextBox HorizontalAlignment="Left" Height="30" Margin="30,21,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="101" FontSize="20" Background="{x:Null}" BorderThickness="0,0,0,1" CharacterCasing="Upper" TextAlignment="Center" Text="{Binding Cur1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox HorizontalAlignment="Left" Height="30" Margin="186,21,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="101" FontSize="20" Background="{x:Null}" BorderThickness="0,0,0,1" CharacterCasing="Upper" TextAlignment="Center" Text="{Binding Cur2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Label Content="/" HorizontalAlignment="Left" Margin="155,21,0,0" VerticalAlignment="Top"/>
+                        <Button Command="{Binding ClickAutoFit}" ToolTip="{x:Static local:_.AutofitToolTip}" Content="&#xE945;" HorizontalAlignment="Left" Margin="292,28,0,0" VerticalAlignment="Top" Width="18" Height="18" FontFamily="/stratum-bot;component/Views/Resources/Fonts/#Segoe MDL2 Assets" Background="{x:Null}" BorderBrush="{x:Null}" BorderThickness="0" Cursor="Hand" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"  Padding="1"/>
+                    </Grid>
+
+                    <Grid>
+                        <Label ToolTip="{x:Static local:_.BudgetToolTip}" Content="{x:Static local:_.Budget}" HorizontalAlignment="Left" Margin="133,0,0,0" VerticalAlignment="Top"/>
+                        <TextBox HorizontalAlignment="Left" Height="30" Margin="30,22,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="257" FontSize="20" Background="{x:Null}" BorderThickness="0,0,0,1" CharacterCasing="Upper" TextAlignment="Center" Text="{Binding Budget, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    </Grid>
+
+
+                    <Grid>
+                        <GroupBox Header="{x:Static local:_.Buying}" HorizontalAlignment="Left" Height="215" Margin="10,0,0,0" VerticalAlignment="Top" Width="140">
+                            <Grid>
+                                <Label ToolTip="{x:Static local:_.MinSpreadToolTip}" HorizontalAlignment="Left" Margin="8,10,0,0" VerticalAlignment="Top" Content="{x:Static local:_.MinSpread}"/>
+                                <Label ToolTip="{x:Static local:_.OptSpreadToolTip}" HorizontalAlignment="Left" Margin="8,64,0,0" VerticalAlignment="Top" Content="{x:Static local:_.OptSpread}"/>
+                                <Label ToolTip="{x:Static local:_.InTimeoutToolTip}" HorizontalAlignment="Left" Margin="8,130,0,0" VerticalAlignment="Top" Content="{x:Static local:_.InTimeout}"/>
+
+                                <TextBox HorizontalAlignment="Left" Height="30" Margin="10,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="108" FontSize="20" Background="{x:Null}" BorderThickness="0,0,0,1" CharacterCasing="Upper" TextAlignment="Center" Text="{Binding MinSpread}" RenderTransformOrigin="0.444,0.559"/>
+                                <TextBox HorizontalAlignment="Left" Height="30" Margin="10,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="108" FontSize="20" Background="{x:Null}" BorderThickness="0,0,0,1" CharacterCasing="Upper" TextAlignment="Center" Text="{Binding OptSpread}"/>
+                                <TextBox HorizontalAlignment="Left" Height="30" Margin="10,148,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="108" FontSize="20" Background="{x:Null}" BorderThickness="0,0,0,1" CharacterCasing="Upper" TextAlignment="Center" Text="{Binding InTimeout}"/>
+                            </Grid>
+                        </GroupBox>
+                        <GroupBox Header="{x:Static local:_.Selling}" HorizontalAlignment="Left" Height="215" Margin="165,0,0,0" VerticalAlignment="Top" Width="140">
+                            <Grid>
+                                <Label ToolTip="{x:Static local:_.MinMarkupToolTip}" HorizontalAlignment="Left" Margin="8,11,0,0" VerticalAlignment="Top" Content="{x:Static local:_.MinMarkup}"/>
+                                <Label ToolTip="{x:Static local:_.OptMarkupToolTip}" HorizontalAlignment="Left" Margin="8,66,0,0" VerticalAlignment="Top" Content="{x:Static local:_.OptMarkup}"/>
+                                <Label ToolTip="{x:Static local:_.ZeroSellToolTip}" HorizontalAlignment="Left" Margin="8,128,0,0" VerticalAlignment="Top" Content="{x:Static local:_.ZeroSell}"/>
+
+                                <TextBox HorizontalAlignment="Left" Height="30" Margin="10,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="108" FontSize="20" Background="{x:Null}" BorderThickness="0,0,0,1" CharacterCasing="Upper" TextAlignment="Center" Text="{Binding MinMarkup}" RenderTransformOrigin="0.444,0.559"/>
+                                <TextBox HorizontalAlignment="Left" Height="30" Margin="10,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="108" FontSize="20" Background="{x:Null}" BorderThickness="0,0,0,1" CharacterCasing="Upper" TextAlignment="Center" Text="{Binding OptMarkup}" RenderTransformOrigin="0.444,0.559"/>
+                                <TextBox HorizontalAlignment="Left" Height="30" Margin="10,148,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="108" FontSize="20" Background="{x:Null}" BorderThickness="0,0,0,1" CharacterCasing="Upper" TextAlignment="Center" Text="{Binding ZeroSell}" RenderTransformOrigin="0.444,0.559"/>
+
+                            </Grid>
+                        </GroupBox>
+                    </Grid>
+
+                    <Grid>
+                        <Grid x:Name="more_open_btn"  HorizontalAlignment="Left" Height="18" Margin="5,0,0,0" VerticalAlignment="Top" Width="297" Cursor="Hand" MouseLeftButtonDown="more_open_btn_Click">
+                            <Label Content="&#xE0E5;"  FontFamily="/stratum-bot;component/Views/Resources/Fonts/#Segoe MDL2 Assets" HorizontalAlignment="Center" VerticalAlignment="Bottom" Padding="0" Width="304" Height="18" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="0,0,-7,0"/>
+                        </Grid>
+                    </Grid>
+
+
+
+
+                    <WrapPanel x:Name="hide_part" Visibility="Hidden">
+                        <!-- HIDDEN -->
+                        <Grid>
+                            <GroupBox Header="{x:Static local:_.Filters}" Margin="10,0,0,0">
+                                <WrapPanel Margin="2">
+                                    <ItemsControl ItemsSource="{Binding FiltersBuy, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Background="{x:Null}" BorderBrush="{x:Null}">
+                                        <!--<ItemsControl.ItemContainerStyle>
+                                        <Style TargetType="{x:Type ListBoxItem}">
+                                            <Setter Property="Focusable" Value="False"/>
+                                            <Setter Property="Padding" Value="0"/>
+                                        </Style>
+                                    </ItemsControl.ItemContainerStyle>-->
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid Margin="3,0,0,3">
+                                                    <Rectangle Fill="{Binding Color}"></Rectangle>
+                                                    <TextBlock Padding="3" Text="{Binding MyName}"></TextBlock>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <WrapPanel/>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                    </ItemsControl>
+                                    <Button Command="{Binding FiltersAndIndicatorsManagerClick}" CommandParameter="BUY" Style="{DynamicResource StrategyFileButtons}" Content="&#xE82F;"  FontFamily="/stratum-bot;component/Views/Resources/Fonts/#Segoe MDL2 Assets" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="23" Height="23" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                                </WrapPanel>
+                            </GroupBox>
+
+                            <Grid HorizontalAlignment="Left" Height="18" Margin="5,0,0,0" VerticalAlignment="Top" Width="297" Cursor="Hand">
+
+                            </Grid>
+                        </Grid>
+
+
+
+                        <Grid>
+                            <GroupBox Header="                   " HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="295">
+                                <StackPanel>
+                                    <Grid>
+
+                                        <Button Command="{Binding DCAManagerClick}" CommandParameter="SELL" Style="{DynamicResource StrategyFileButtons}" Content="&#xE115;"  FontFamily="/stratum-bot;component/Views/Resources/Fonts/#Segoe MDL2 Assets" Width="23" Height="23" Margin="0,-72,168,0" Panel.ZIndex="1" />
+
+                                        <CheckBox x:Name="isdca_chkbx" IsChecked="{Binding IsDCA}"  Content="DCA" Margin="4,-15,-4.299,15.343"/>
+                                        <Label ToolTip="{x:Static local:_.DCAProfitToolTip}" Content="{x:Static local:_.Profit}" HorizontalAlignment="Left" Margin="4,5,0,0" VerticalAlignment="Top" IsEnabled="{Binding ElementName=isdca_chkbx, Path=IsChecked, TargetNullValue=false}"/>
+                                        <Label ToolTip="{x:Static local:_.DCAStepsCountToolTip}" Content="{x:Static local:_.DCAStepsCount}" HorizontalAlignment="Left" Margin="164,5,0,0" VerticalAlignment="Top" IsEnabled="{Binding ElementName=isdca_chkbx, Path=IsChecked, TargetNullValue=false}"/>
+                                        <TextBox ToolTip="{x:Static local:_.DCAProfitPercentToolTip}" HorizontalAlignment="Left" Height="30" Margin="10,28,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="108" FontSize="20" Background="{x:Null}" BorderThickness="0,0,0,1" CharacterCasing="Upper" TextAlignment="Center" Text="{Binding DCAProfitPercent}" IsEnabled="{Binding ElementName=isdca_chkbx, Path=IsChecked, TargetNullValue=false}"/>
+                                        <TextBox ToolTip="{x:Static local:_.DCAGridSizeToolTip}" x:Name="dca_steps_count_txt" HorizontalAlignment="Left" Height="30" Margin="166,28,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="108" FontSize="20" Background="{x:Null}" BorderThickness="0,0,0,1" CharacterCasing="Upper" TextAlignment="Center" Text="{Binding DCAStepCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding ElementName=isdca_chkbx, Path=IsChecked, TargetNullValue=false}"/>
+                                    </Grid>
+
+                                    <Grid x:Name="dca_labels_text">
+                                        <Grid.Style>
+                                            <Style TargetType="{x:Type Grid}">
+                                                <Setter Property="Height" Value="28"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Text, ElementName=dca_steps_count_txt}" Value="0">
+                                                        <Setter Property="Height" Value="0"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding IsChecked, ElementName=isdca_chkbx}" Value="False">
+                                                        <Setter Property="Height" Value="0"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Grid.Style>
+                                        <Label ToolTip="{x:Static local:_.PriceDropToolTip}" Content="{x:Static local:_.PriceDrop}" HorizontalAlignment="Left" Margin="4,2,0,0" VerticalAlignment="Top"/>
+                                        <Label ToolTip="{x:Static local:_.AdditionalBuyAmountToolTip}" Content="{x:Static local:_.AdditionalBuyAmount}" HorizontalAlignment="Left" Margin="164,2,0,0" VerticalAlignment="Top"/>
+                                    </Grid>
+
+                                    <WrapPanel x:Name="dca_steps" Visibility="{Binding IsChecked, ElementName=isdca_chkbx, Converter={StaticResource b2v}}">
+                                        <ItemsControl ItemsSource="{Binding DCASteps, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="118"></ColumnDefinition>
+                                                            <ColumnDefinition Width="49"></ColumnDefinition>
+                                                            <ColumnDefinition Width="118"></ColumnDefinition>
+                                                        </Grid.ColumnDefinitions>
+                                                        <TextBox Grid.Column="0" Text="{Binding Path=[1], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="30" Width="108" FontSize="20" Margin="10,2,0,0" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Background="{x:Null}" BorderThickness="0,0,0,1" CharacterCasing="Upper" TextAlignment="Center"/>
+                                                        <Label Grid.Column="1" Margin="13,2,0,0" Content="{Binding Path=[0]}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                        <TextBox Grid.Column="2" Text="{Binding Path=[2], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="30" Width="108" FontSize="20" Margin="0,2,0,0" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Background="{x:Null}" BorderThickness="0,0,0,1" CharacterCasing="Upper" TextAlignment="Center"/>
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </WrapPanel>
+                                    <Grid Margin="0,10,0,0"></Grid>
+                                </StackPanel>
+                            </GroupBox>
+                        </Grid>
+
+                        <!-- StopLoss -->
+                        <Grid Margin="10,10,0,0" Width="300">
+                            <Grid.Style>
+                                <Style TargetType="{x:Type Grid}">
+                                    <Setter Property="Height" Value="0"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsChecked, ElementName=is_stoploss}" Value="False">
+                                            <Setter Property="Height" Value="Auto"/>
+                                            <Setter Property="Margin" Value="0"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Grid.Style>
+                            <CheckBox x:Name="is_stoploss" IsChecked="{Binding IsStopLoss}" Content="{x:Static local:_.StopLoss}" ToolTip="{x:Static local:_.StopLossToolTip}" />
+                        </Grid>
+
+                        <Grid Margin="0,0,0,10">
+                            <Grid.Style>
+                                <Style TargetType="{x:Type Grid}">
+                                    <Setter Property="Height" Value="Auto"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsChecked, ElementName=is_stoploss_open}" Value="False">
+                                            <Setter Property="Height" Value="0"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Grid.Style>
+                            <GroupBox Header="                       " ToolTip="{x:Static local:_.StopLossToolTip}" HorizontalAlignment="Left" Height="69" Margin="10,0,0,0" VerticalAlignment="Top" Width="295">
+                                <WrapPanel Margin="2">
+                                    <CheckBox  x:Name="is_stoploss_open" IsChecked="{Binding IsStopLoss}" Content="{x:Static local:_.StopLoss}" Margin="2,-17,0,0" />
+                                    <Grid>
+                                        <TextBox ToolTip="{x:Static local:_.StopLossTextBoxToolTip}" HorizontalAlignment="Left" Height="30" Margin="10,8,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="264" FontSize="20" Background="{x:Null}" BorderThickness="0,0,0,1" CharacterCasing="Upper" TextAlignment="Center" Text="{Binding StopLoss}"/>
+                                    </Grid>
+                                </WrapPanel>
+                            </GroupBox>
+                        </Grid>
+
+                        <!-- StopLoss -->
+
+
+                        <Grid Visibility="{Binding Path=ProMode,Converter={StaticResource b2v},UpdateSourceTrigger=PropertyChanged}">
+                            <GroupBox Header="{x:Static local:_.IgnoreOrdersLess}" HorizontalAlignment="Left" Height="69" Margin="10,0,0,0" VerticalAlignment="Top" Width="295">
+                                <Grid>
+                                    <TextBox ToolTip="{x:Static local:_.IgnoreOrdersPercentToolTip}" HorizontalAlignment="Left" Height="30" Margin="10,8,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="108" FontSize="20" Background="{x:Null}" BorderThickness="0,0,0,1" CharacterCasing="Upper" TextAlignment="Center" Text="{Binding FirsOredersAmountPercentIgnor}"/>
+                                    <TextBox ToolTip="{x:Static local:_.IgnoreOrdersCountToolTip}" HorizontalAlignment="Left" Height="30" Margin="166,8,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="108" FontSize="20" Background="{x:Null}" BorderThickness="0,0,0,1" CharacterCasing="Upper" TextAlignment="Center" Text="{Binding FirsOredersCountIgnor}"/>
+                                </Grid>
+                            </GroupBox>
+                        </Grid>
+
+                        <!--
+                        <Grid>
+                            <GroupBox Header="                                     " ToolTip="{x:Static local:_.SellStartToolTip}" HorizontalAlignment="Left" Height="90" Margin="10,0,0,0" VerticalAlignment="Top" Width="295">
+                                <Grid>
+                                    <CheckBox x:Name="issell_chkbx" IsChecked="{Binding IsSellStart}" Content="{x:Static local:_.SellStart}" Margin="4,-15,-4.299,15.343"/>
+                                    <Label ToolTip="{x:Static local:_.SellStartPriceToolTip}" Content="{x:Static local:_.Price}" HorizontalAlignment="Left" Margin="4,5,0,0" VerticalAlignment="Top" IsEnabled="{Binding ElementName=issell_chkbx, Path=IsChecked, TargetNullValue=false}"/>
+                                    <Label ToolTip="{x:Static local:_.SellStartAmountToolTip}" Content="{x:Static local:_.Amount}" HorizontalAlignment="Left" Margin="164,5,0,0" VerticalAlignment="Top" IsEnabled="{Binding ElementName=issell_chkbx, Path=IsChecked, TargetNullValue=false}"/>
+                                    <TextBox HorizontalAlignment="Left" Height="30" Margin="10,28,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="108" FontSize="20" Background="{x:Null}" BorderThickness="0,0,0,1" CharacterCasing="Upper" TextAlignment="Center" Text="{Binding BuyPriceForSellStart}" IsEnabled="{Binding ElementName=issell_chkbx, Path=IsChecked, TargetNullValue=false}"/>
+                                    <TextBox HorizontalAlignment="Left" Height="30" Margin="166,28,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="108" FontSize="20" Background="{x:Null}" BorderThickness="0,0,0,1" CharacterCasing="Upper" TextAlignment="Center" Text="{Binding AmountForSellStart}" IsEnabled="{Binding ElementName=issell_chkbx, Path=IsChecked, TargetNullValue=false}"/>
+                                </Grid>
+                            </GroupBox>
+                        </Grid>
+                        -->
+                    </WrapPanel>
+                    <!-- HIDDEN -->
+
+                </WrapPanel>
+            </ScrollViewer>
+        </DockPanel>
+    </WrapPanel>
+</UserControl>

@@ -1,0 +1,16 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:stratumbot.Views.Styles">
+
+    <Style x:Key="LogsItemStyle" TargetType="{x:Type ListViewItem}">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding type}" Value="2">
+                <Setter Property="Foreground" Value="#FFB7B7B7" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding type}" Value="3">
+                <Setter Property="Foreground" Value="#FFFE0000" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+    
+</ResourceDictionary>

@@ -1,0 +1,249 @@
+﻿<Window x:Class="stratumbot.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:stratumbot"
+        xmlns:strategyViews="clr-namespace:stratumbot.Views.StrategyViews"
+        xmlns:boxViews="clr-namespace:stratumbot.Views.BoxViews"
+        xmlns:Models="clr-namespace:stratumbot.Models.Logs"
+        mc:Ignorable="d"
+        Title="stratum-bot" Height="570" Width="925" WindowStartupLocation="CenterScreen" Background="#19FFFFFF" MouseLeftButtonDown="DragMoveWindow" Icon="/Views/Resources/Images/icon.png" WindowStyle="None" AllowsTransparency="True" ResizeMode="CanResizeWithGrip" >
+    <DockPanel x:Name="Wrap" LastChildFill="True" Background="#D8CDEFFF">
+
+        <!-- blue panel -->
+        <Grid DockPanel.Dock="Left"  Width="321" Loaded="Grid_Loaded" GotFocus="Grid_GotFocus">
+            <Grid.Background>
+                <ImageBrush Opacity="0.01">
+                    <ImageBrush.ImageSource>
+                        <ImageSource>/Views/Resources/Images/bg.jpg</ImageSource>
+                    </ImageBrush.ImageSource>
+                </ImageBrush>
+            </Grid.Background>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="66" />
+                    <RowDefinition Height="29"/>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <!-- title and strategy menu -->
+                <DockPanel Grid.Row="0" Height="30" LastChildFill="True">
+                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" Margin="0,6,15,0" >
+                        <Button Command="{Binding ClickUpdateConfig}" Content="&#xE1DF;" Style="{DynamicResource StrategyFileButtons}" />
+                        <Button Command="{Binding ClickSaveConfig}" Content="&#xE197;" Style="{DynamicResource StrategyFileButtons}"/>
+                        <Button Command="{Binding ClickOpenConfig}" Content="&#xE1DA;" Style="{DynamicResource StrategyFileButtons}"/>
+                    </StackPanel>
+                    <Grid>
+                        <Label x:Name="stratum_title" Content="STRATUM-BOT" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Historic" FontSize="16" Margin="9,3,0,-1.328" Cursor="Cross"/>
+                    </Grid>
+                </DockPanel>
+
+                <!-- exchange and strategy choice -->
+                <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Grid Margin="10">
+                        <ComboBox ItemTemplate="{StaticResource AvailableExchangesItem}" ItemsSource="{Binding MyAvailableExchanges}" SelectedValue="{Binding SelectedExchange}" HorizontalAlignment="Center" VerticalAlignment="Top" Height="42" Width="137"/>
+                    </Grid>
+                    <Grid Margin="10">
+                        <ComboBox ItemTemplate="{StaticResource AvailableStrategiesItem}" ItemsSource="{Binding MyAvailableStrategies, Mode=TwoWay}" SelectedValue="{Binding SelectedStrategy, Mode=TwoWay}" HorizontalAlignment="Center" VerticalAlignment="Top" Height="42" Width="137"/>
+                        <!--ItemTemplate="{StaticResource cmbTemplate}"-->
+                    </Grid>
+                </StackPanel>
+                <!-- config choice -->
+                <Grid Grid.Row="2">
+                    <Grid.InputBindings>
+                        <MouseBinding Gesture="LeftClick" Command="{Binding AddState}" />
+                    </Grid.InputBindings>
+                    <ComboBox ItemsSource="{Binding StrategyConfigs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedStrategyConfig, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Выберите настройки стратегии" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="295" FontSize="16"/>
+                </Grid>
+
+                <Grid Grid.Row="3">
+                    <ContentControl Content="{Binding StrategyView}"/>
+                </Grid>
+            </Grid>
+        </Grid>
+
+
+        <!-- work panel -->
+        <Grid Background="#D8F5F5F5">
+            <StackPanel Orientation="Vertical" >
+                <DockPanel Height="30" LastChildFill="True">
+
+                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
+                        <Button x:Name="StateMinimizedButton" Content="&#xE949;" Style="{DynamicResource TitleBarButtons}" Click="StateMinimizedButton_Click" />
+                        <Button x:Name="StateButton" Content="&#xF12A;" Style="{DynamicResource TitleBarButtons}" Click="StateButton_Click" />
+                        <Button x:Name="CloseButton" Content="&#xE947;" Style="{DynamicResource TitleBarButtons}" Click="CloseButton_Click" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Button Command="{Binding SettingsClick}" Style="{DynamicResource MainMenuButtons}" Content="{x:Static local:_.SettingsButtonText}" />
+                        <Button Command="{Binding StratumBoxClick}" Style="{DynamicResource MainMenuButtons}" Content="StratumBox" />
+                        <Button Command="{Binding GotoPageClick}" CommandParameter="telegram" Style="{DynamicResource MainMenuButtons}" Content="Telegram" />
+
+                    </StackPanel>
+                </DockPanel>
+
+                <!-- Bablo Button and Statistics-->
+                <DockPanel Height="80" LastChildFill="True" Margin="0,0,0,0">
+                    <!-- Статистика -->
+                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
+                        <Grid Margin="2,0,10,0">
+                            <!-- Tooltip Will Be Stat Here -->
+                            <Rectangle  Name="Rect"
+                                        Fill="#FFF5FCD3"
+                                        AllowDrop="True"
+                                        Stroke="#FF000000"
+                                        StrokeThickness="0.9" 
+                                        StrokeDashArray="5 5"
+                                        SnapsToDevicePixels="True"
+                                        Height="58"
+                                        Width="282">
+                                <Rectangle.Triggers>
+                                    <EventTrigger RoutedEvent="Window.Loaded">
+                                        <BeginStoryboard>
+                                            <Storyboard >
+                                                <DoubleAnimation To="20" Duration="0:0:40" RepeatBehavior="Forever" By="1" Storyboard.TargetProperty="StrokeDashOffset" Storyboard.TargetName="Rect"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </Rectangle.Triggers>
+                            </Rectangle>
+                            <Grid>
+                                <Label Margin="10,15,0,0" Content="{Binding IterationsStr}"/>
+                                <Label Margin="10,35,0,0" Content="{Binding ProfitStr}"/>
+                            </Grid>
+                        </Grid>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Button Command="{Binding ClickBablo, Mode=TwoWay}" Content="{Binding BabloText, Mode=TwoWay}" ToolTip="{x:Static local:_.BabloButtonToolTip}" Style="{DynamicResource BabloButton}"  Width="286" Height="59" />
+                        <Image ToolTip="When you're lost in the darkness.. Look for the light!" Visibility="{Binding Path=IsBabloImage,Converter={StaticResource b2v},UpdateSourceTrigger=PropertyChanged}" x:Name="toy" Height="50" Margin="-100,5,0,0" RenderTransformOrigin="0.5,0.5" Source="Resources/Images/fireflies.png" OpacityMask="#33000000">
+                            <Image.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform Angle="-15.912"/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </Image.RenderTransform>
+                        </Image>
+                        <!-- place for thread control buttons -->
+                    </StackPanel>
+                </DockPanel>
+
+                <!-- Widgets Area -->
+                <Grid Margin="10, 0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="305" />
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="30" />
+                    </Grid.RowDefinitions>
+                    <TabControl Grid.Row="0">
+                        <TabItem Header="{x:Static local:_.Threads}">
+                            <Grid Background="#FFE5E5E5">
+                                <DataGrid GotFocus="Table_GotFocus" ItemsSource="{Binding Threads}" SelectedItem="{Binding SelectedThread, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0.433,0.343" CanUserSortColumns="False" IsReadOnly="True" HorizontalGridLinesBrush="LightGray" VerticalGridLinesBrush="LightGray" AutoGenerateColumns="False" BorderBrush="#FFD0DDEA" RowHeaderWidth="0">
+                                    <DataGrid.Columns>
+
+                                        <DataGridTemplateColumn Header="TID" Width="32">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="{Binding Path=TID}" Margin="2,0,0,0" />
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+
+                                        <DataGridTextColumn Header="{x:Static local:_.StatusColumn}" Width="50" Binding="{Binding Path=Status}" IsReadOnly="True" />
+                                        <DataGridTextColumn Header="{x:Static local:_.Date}" Width="110" Binding="{Binding Path=Time}" IsReadOnly="True" />
+                                        <DataGridTextColumn Header="{x:Static local:_.Pair}" Width="60" Binding="{Binding Path=Pair}" IsReadOnly="True" />
+                                        <DataGridTextColumn Header="{x:Static local:_.Budget}" Width="72" Binding="{Binding Path=Budget}" IsReadOnly="True" />
+                                        <DataGridTextColumn Header="{x:Static local:_.IterationsColumn}" Width="70" Binding="{Binding Path=Iteration}" IsReadOnly="True" />
+                                        <DataGridTextColumn Header="{x:Static local:_.Profit}" Width="73" Binding="{Binding Path=Profit}" IsReadOnly="True" />
+                                        <DataGridTextColumn Header="{x:Static local:_.ProfitPercentColumn}" Width="73" Binding="{Binding Path=ProfitPercent}" IsReadOnly="True" />
+                                        <DataGridTextColumn Header="DCA" Width="35" Binding="{Binding Path=DCAStep}" IsReadOnly="True" />
+
+                                    </DataGrid.Columns>
+
+
+                                    <DataGrid.ContextMenu>
+                                        <ContextMenu x:Name="threadscontextmenu" Opened="Threadscontextmenu_Opened">
+                                            <MenuItem IsCheckable="true" IsChecked="{Binding IsStopAfterSell, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{x:Static local:_.StopAfterSellThreadMenu}" />
+                                            <MenuItem Command="{Binding EditModeClick}" Header="{x:Static local:_.EditModeThreadMenu}" />
+                                            <Separator></Separator>
+                                            <MenuItem Command="{Binding SaveCollectionClick}" Header="{x:Static local:_.SaveCollectionThreadMenu}"/>
+                                            <MenuItem Command="{Binding LoadCollectionClick}" Header="{x:Static local:_.LoadCollectionThreadMenu}" MouseEnter="LoadCollectionMenuItem_MouseEnter"/>
+                                            <Separator></Separator>
+                                            <MenuItem Command="{Binding ClickThreadDelete}" Header="{x:Static local:_.Delete}" />
+
+                                        </ContextMenu>
+                                    </DataGrid.ContextMenu>
+
+                                    <DataGrid.Resources>
+                                        <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#FFF8FBEA"/>
+                                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#FFF5FCD3"/>
+                                        <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent" />
+                                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
+                                        <SolidColorBrush x:Key="{x:Static SystemColors.ControlTextBrushKey}" Color="Black" />
+
+                                        <Style TargetType="DataGridCell">
+                                            <Setter Property="BorderThickness" Value="0"/>
+                                            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                                        </Style>
+
+                                    </DataGrid.Resources>
+
+                                </DataGrid>
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="{x:Static local:_.Logs}">
+                            <Grid Background="#FFE5E5E5">
+                                <ListView ItemContainerStyle="{StaticResource LogsItemStyle}" ItemsSource="{Binding Source={x:Static Models:Logger.Logs}}"  HorizontalAlignment="Stretch"   VerticalAlignment="Stretch"   ScrollViewer.HorizontalScrollBarVisibility="Hidden" Margin="0,0,0,-0.463" BorderBrush="#FFD0DDEA">
+                                    <ListView.Resources>
+                                        <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}">
+                                            <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
+                                            <Style.Triggers>
+                                                <Trigger Property="Orientation" Value="Horizontal">
+                                                    <Setter Property="Height" Value="10" />
+                                                    <Setter Property="MinHeight" Value="10" />
+                                                </Trigger>
+                                                <Trigger Property="Orientation" Value="Vertical">
+                                                    <Setter Property="Width" Value="10" />
+                                                    <Setter Property="MinWidth" Value="10" />
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </ListView.Resources>
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridViewColumn Header="{x:Static local:_.TimeColumn}" DisplayMemberBinding="{Binding time}" Width="70"/>
+                                            <GridViewColumn Header="{x:Static local:_.ActionColumn}" DisplayMemberBinding="{Binding action}"  Width="488"/>
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="{x:Static local:_.MyOrders}" Visibility="{Binding Path=IsMyOrdersBox,Converter={StaticResource b2v},UpdateSourceTrigger=PropertyChanged}">
+                            <Grid>
+                                <boxViews:MyOrdersBoxView />
+                            </Grid>
+                        </TabItem>
+                    </TabControl>
+                    <GridSplitter Grid.Row="1" ResizeBehavior="PreviousAndNext" HorizontalAlignment="Stretch" Height="3" />
+
+                    <!-- Additional (bottom) widgets -->
+                    <Grid Grid.Row="2">
+                    </Grid>
+                </Grid>
+
+
+
+
+
+            </StackPanel>
+        </Grid>
+
+    </DockPanel>
+</Window>

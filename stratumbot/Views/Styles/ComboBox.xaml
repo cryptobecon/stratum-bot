@@ -1,0 +1,19 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:stratumbot.Views.Styles">
+
+    <DataTemplate x:Key="AvailableStrategiesItem">
+        <WrapPanel Margin="0 1 0 1" Height="40" Orientation="Horizontal">
+            <!--<Image Width="18" Height="18" Stretch="Fill" Source="{Binding Photo}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,0"/>-->
+            <Label Content="{Binding Name}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16"/>
+        </WrapPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="AvailableExchangesItem">
+        <WrapPanel Margin="0 1 0 1" Height="40" Orientation="Horizontal">
+            <!--<Image Width="18" Height="18" Stretch="Fill" Source="{Binding Photo}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,0"/>-->
+            <Label Content="{Binding Name}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16"/>
+        </WrapPanel>
+    </DataTemplate>
+
+</ResourceDictionary>

@@ -1,0 +1,12 @@
+﻿<Window x:Class="stratumbot.Views.LoadingWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:stratumbot.Views"
+        mc:Ignorable="d"
+        Title="Loading" Height="264.439" Width="716.329" Topmost="True" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Icon="/Views/Resources/Images/icon.png" AllowsTransparency="True" WindowStyle="None" Foreground="{x:Null}">
+    <Window.Background>
+        <ImageBrush ImageSource="/Views/Resources/Images/loading.png"/>
+    </Window.Background>
+</Window>
