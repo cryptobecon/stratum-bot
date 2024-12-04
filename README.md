@@ -1,0 +1,2 @@
+# stratum-bot
+Trading bot.
